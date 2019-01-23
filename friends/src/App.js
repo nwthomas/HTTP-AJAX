@@ -7,13 +7,13 @@ import FriendForm from "./components/FriendFormComponent/FriendForm";
 class App extends Component {
   state = {
     friends: [],
-    error: "",
     newFriendName: "",
     newFriendAge: "",
-    newFriendEmail: ""
+    newFriendEmail: "",
+    message: ""
   };
 
-  componentDidMount() {
+  getData = () => {
     axios
       .get("http://localhost:5000/friends")
       .then(res =>
@@ -32,6 +32,10 @@ class App extends Component {
           () => console.log(this.state.error)
         )
       );
+  };
+
+  componentDidMount() {
+    this.getData();
   }
 
   onChange = e => {
@@ -40,14 +44,34 @@ class App extends Component {
     });
   };
 
-  onSubmit = () => {
-    // enter information
+  postNewFriend = e => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/friends", {
+        name: this.state.newFriendName,
+        age: this.state.newFriendAge,
+        email: this.state.newFriendEmail
+      })
+      .then(res => {
+        console.log(res);
+        this.setState(
+          {
+            message: res.successText
+          },
+          () => console.log(this.state.postMessage)
+        );
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
     return (
       <div className="App">
-        <FriendForm stateOnProps={this.state} onChange={this.onChange} />
+        <FriendForm
+          stateOnProps={this.state}
+          onChange={this.onChange}
+          postNewFriend={this.postNewFriend}
+        />
         <FriendList friendsOnProps={this.state.friends} />
       </div>
     );

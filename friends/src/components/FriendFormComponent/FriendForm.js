@@ -3,7 +3,7 @@ import React from "react";
 const FriendForm = props => {
   return (
     <div className="form__container">
-      <form>
+      <form onSubmit={props.postNewFriend}>
         <input
           className="new-friend-name"
           type="text"
