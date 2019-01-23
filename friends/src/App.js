@@ -25,12 +25,9 @@ class App extends Component {
         )
       )
       .catch(err =>
-        this.setState(
-          {
-            error: err
-          },
-          () => console.log(this.state.error)
-        )
+        this.setState({
+          error: err
+        })
       );
   };
 
@@ -53,15 +50,18 @@ class App extends Component {
         email: this.state.newFriendEmail
       })
       .then(res => {
-        console.log(res);
-        this.setState(
+        return this.setState(
           {
-            message: res.successText
+            message: res.statusText
           },
-          () => console.log(this.state.postMessage)
+          () => console.log(this.state.message)
         );
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        return this.setState({
+          message: err
+        });
+      });
   };
 
   render() {
