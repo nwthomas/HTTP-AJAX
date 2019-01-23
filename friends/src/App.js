@@ -10,17 +10,21 @@ class App extends Component {
     newFriendName: "",
     newFriendAge: "",
     newFriendEmail: "",
-    message: ""
+    message: "",
+    id: ""
   };
 
   getData = () => {
     axios
       .get("http://localhost:5000/friends")
       .then(res =>
-        this.setState({
-          friends: res.data,
-          message: res.statusText
-        })
+        this.setState(
+          {
+            friends: res.data,
+            message: res.statusText
+          },
+          () => console.log(this.state.friends)
+        )
       )
       .catch(err =>
         this.setState({
@@ -41,26 +45,64 @@ class App extends Component {
 
   postNewFriend = e => {
     e.preventDefault();
-    axios
-      .post("http://localhost:5000/friends", {
-        name: this.state.newFriendName,
-        age: this.state.newFriendAge,
-        email: this.state.newFriendEmail
-      })
-      .then(res => {
-        return this.setState(
-          {
-            message: res.statusText,
-            friends: res.data
-          },
-          () => console.log(this.state.message)
-        );
-      })
-      .catch(err => {
-        return this.setState({
-          message: err
+    if (this.state.id) {
+      axios
+        .put(`http://localhost:5000/friends/${this.state.id}`, {
+          name: this.state.newFriendName,
+          age: this.state.newFriendAge,
+          email: this.state.newFriendEmail
+        })
+        .then(res => {
+          return this.setState(
+            {
+              message: res.statusText,
+              friends: res.data
+            },
+            () => console.log(res)
+          );
+        })
+        .catch(err => {
+          return this.setState({
+            message: err
+          });
         });
-      });
+    } else {
+      axios
+        .post("http://localhost:5000/friends", {
+          name: this.state.newFriendName,
+          age: this.state.newFriendAge,
+          email: this.state.newFriendEmail
+        })
+        .then(res => {
+          return this.setState(
+            {
+              message: res.statusText,
+              friends: res.data
+            },
+            () => console.log(this.state.message)
+          );
+        })
+        .catch(err => {
+          return this.setState({
+            message: err
+          });
+        });
+    }
+  };
+
+  modifyFriend = id => {
+    this.state.friends.map(friend => {
+      if (friend.id === id) {
+        return this.setState({
+          newFriendName: friend.name,
+          newFriendAge: friend.age,
+          newFriendEmail: friend.email,
+          id: friend.id
+        });
+      } else {
+        return false;
+      }
+    });
   };
 
   deleteFriend = id => {
@@ -69,7 +111,11 @@ class App extends Component {
       .then(res => {
         return this.setState({
           message: res.statusText,
-          friends: res.data
+          friends: res.data,
+          newFriendName: "",
+          newFriendAge: "",
+          newFriendEmail: "",
+          id: ""
         });
       })
       .catch(err => {
@@ -90,6 +136,7 @@ class App extends Component {
         <FriendList
           friendsOnProps={this.state.friends}
           deleteFriend={this.deleteFriend}
+          modifyFriend={this.modifyFriend}
         />
       </div>
     );

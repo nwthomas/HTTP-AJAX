@@ -8,7 +8,11 @@ const Friend = props => {
       <p className="friend__age">{age}</p>
       <p className="friend__email">{email}</p>
       <div className="friend__buttons">
-        <button className="btn modify" name="modify">
+        <button
+          onClick={() => props.modifyFriend(id)}
+          className="btn modify"
+          name="modify"
+        >
           Modify
         </button>
         <button
