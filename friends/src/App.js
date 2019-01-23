@@ -17,12 +17,10 @@ class App extends Component {
     axios
       .get("http://localhost:5000/friends")
       .then(res =>
-        this.setState(
-          {
-            friends: res.data
-          },
-          () => console.log(this.state.friends)
-        )
+        this.setState({
+          friends: res.data,
+          message: res.statusText
+        })
       )
       .catch(err =>
         this.setState({
@@ -52,7 +50,8 @@ class App extends Component {
       .then(res => {
         return this.setState(
           {
-            message: res.statusText
+            message: res.statusText,
+            friends: res.data
           },
           () => console.log(this.state.message)
         );
@@ -60,6 +59,22 @@ class App extends Component {
       .catch(err => {
         return this.setState({
           message: err
+        });
+      });
+  };
+
+  deleteFriend = id => {
+    axios
+      .delete(`http://localhost:5000/friends/${id}`)
+      .then(res => {
+        return this.setState({
+          message: res.statusText,
+          friends: res.data
+        });
+      })
+      .catch(err => {
+        return this.setState({
+          message: err.statusText
         });
       });
   };
@@ -72,7 +87,10 @@ class App extends Component {
           onChange={this.onChange}
           postNewFriend={this.postNewFriend}
         />
-        <FriendList friendsOnProps={this.state.friends} />
+        <FriendList
+          friendsOnProps={this.state.friends}
+          deleteFriend={this.deleteFriend}
+        />
       </div>
     );
   }
