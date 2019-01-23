@@ -30,6 +30,9 @@ const FriendForm = props => {
           onChange={props.onChange}
         />
         <button type="submit">Submit</button>
+        <button onClick={props.clearForm} type="button">
+          Clear
+        </button>
       </form>
     </div>
   );

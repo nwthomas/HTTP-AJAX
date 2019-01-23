@@ -37,6 +37,16 @@ class App extends Component {
     this.getData();
   }
 
+  clearForm = () => {
+    this.setState({
+      newFriendName: "",
+      newFriendAge: "",
+      newFriendEmail: "",
+      message: "",
+      id: ""
+    });
+  };
+
   onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -132,6 +142,7 @@ class App extends Component {
           stateOnProps={this.state}
           onChange={this.onChange}
           postNewFriend={this.postNewFriend}
+          clearForm={this.clearForm}
         />
         <FriendList
           friendsOnProps={this.state.friends}
