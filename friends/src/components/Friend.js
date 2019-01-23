@@ -1,6 +1,6 @@
 import React from "react";
 
-const Friends = props => {
+const Friend = props => {
   return (
     <div className="friend">
       <h2 className="friend__name">{props.friend.name}</h2>
@@ -10,4 +10,4 @@ const Friends = props => {
   );
 };
 
-export default Friends;
+export default Friend;
