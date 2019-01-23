@@ -3,6 +3,7 @@ import "./App.css";
 import axios from "axios";
 import FriendList from "./components/FriendsListComponent/FriendList";
 import FriendForm from "./components/FriendFormComponent/FriendForm";
+import NavbarContainer from "./components/NavbarComponent/NavbarContainer";
 
 class App extends Component {
   state = {
@@ -138,6 +139,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <NavbarContainer />
         <FriendForm
           stateOnProps={this.state}
           onChange={this.onChange}
