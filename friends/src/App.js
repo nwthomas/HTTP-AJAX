@@ -99,7 +99,11 @@ class App extends Component {
           return this.setState(
             {
               message: res.statusText,
-              friends: res.data
+              friends: res.data,
+              shownFriends: res.data,
+              newFriendName: "",
+              newFriendAge: "",
+              newFriendEmail: ""
             },
             () => console.log(res)
           );
@@ -121,6 +125,7 @@ class App extends Component {
             {
               message: res.statusText,
               friends: res.data,
+              shownFriends: res.data,
               newFriendName: "",
               newFriendAge: "",
               newFriendEmail: ""
