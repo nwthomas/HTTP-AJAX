@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Friend = props => {
   const { name, age, email, id } = props.friend;
@@ -9,7 +9,7 @@ const Friend = props => {
       <p className="friend__age">{age}</p>
       <p className="friend__email">{email}</p>
       <div className="friend__buttons">
-        <NavLink to="/form">
+        <Link to="/form">
           <button
             onClick={() => props.modifyFriend(id)}
             className="btn modify"
@@ -17,7 +17,7 @@ const Friend = props => {
           >
             Modify
           </button>
-        </NavLink>
+        </Link>
         <button
           onClick={() => props.deleteFriend(id)}
           className="btn delete"
