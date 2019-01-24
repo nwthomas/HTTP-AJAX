@@ -6,34 +6,40 @@ import FriendForm from "./components/FriendFormComponent/FriendForm";
 import NavbarContainer from "./components/NavbarComponent/NavbarContainer";
 import { Route } from "react-router-dom";
 
+const baseUrl = "http://localhost:5000";
+const clearForm = {
+  newFriendName: "",
+  newFriendAge: "",
+  newFriendEmail: ""
+};
 class App extends Component {
-  state = {
-    friends: [],
-    shownFriends: [],
-    newFriendName: "",
-    newFriendAge: "",
-    newFriendEmail: "",
-    message: "",
-    id: "",
-    searchInput: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      friends: [],
+      shownFriends: [],
+      newFriendName: "",
+      newFriendAge: "",
+      newFriendEmail: "",
+      message: "",
+      id: "",
+      searchInput: ""
+    };
+  }
 
   getData = () => {
     axios
-      .get("http://localhost:5000/friends")
+      .get(`${baseUrl}/friends`)
       .then(res =>
-        this.setState(
-          {
-            friends: res.data,
-            shownFriends: res.data,
-            message: res.statusText
-          },
-          () => console.log(this.state.friends)
-        )
+        this.setState({
+          friends: res.data,
+          shownFriends: res.data,
+          message: res.statusText
+        })
       )
       .catch(err =>
         this.setState({
-          error: err
+          message: err
         })
       );
   };
@@ -44,10 +50,7 @@ class App extends Component {
 
   clearForm = () => {
     this.setState({
-      newFriendName: "",
-      newFriendAge: "",
-      newFriendEmail: "",
-      message: "",
+      ...clearForm,
       id: ""
     });
   };
@@ -89,23 +92,22 @@ class App extends Component {
   postNewFriend = e => {
     e.preventDefault();
     if (this.state.id) {
+      // Conditionally submits to modify based on this.state.id
       axios
-        .put(`http://localhost:5000/friends/${this.state.id}`, {
+        .put(`${baseUrl}/friends/${this.state.id}`, {
           name: this.state.newFriendName,
           age: this.state.newFriendAge,
           email: this.state.newFriendEmail
         })
         .then(res => {
-          return this.setState(
+          this.setState(
             {
               message: res.statusText,
               friends: res.data,
               shownFriends: res.data,
-              newFriendName: "",
-              newFriendAge: "",
-              newFriendEmail: ""
+              ...clearForm
             },
-            () => console.log(res)
+            () => this.props.history.push("/")
           );
         })
         .catch(err => {
@@ -114,6 +116,7 @@ class App extends Component {
           });
         });
     } else {
+      // Conditionally submits new post if this.state.id is empty string
       axios
         .post("http://localhost:5000/friends", {
           name: this.state.newFriendName,
@@ -126,11 +129,9 @@ class App extends Component {
               message: res.statusText,
               friends: res.data,
               shownFriends: res.data,
-              newFriendName: "",
-              newFriendAge: "",
-              newFriendEmail: ""
+              ...clearForm
             },
-            () => console.log(this.state.message)
+            () => this.props.history.push("/")
           );
         })
         .catch(err => {
@@ -164,9 +165,7 @@ class App extends Component {
           message: res.statusText,
           friends: res.data,
           shownFriends: res.data,
-          newFriendName: "",
-          newFriendAge: "",
-          newFriendEmail: "",
+          ...clearForm,
           id: ""
         });
       })
