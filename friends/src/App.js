@@ -4,6 +4,7 @@ import axios from "axios";
 import FriendList from "./components/FriendsListComponent/FriendList";
 import FriendForm from "./components/FriendFormComponent/FriendForm";
 import NavbarContainer from "./components/NavbarComponent/NavbarContainer";
+import { Route } from "react-router-dom";
 
 class App extends Component {
   state = {
@@ -157,6 +158,7 @@ class App extends Component {
         return this.setState({
           message: res.statusText,
           friends: res.data,
+          shownFriends: res.data,
           newFriendName: "",
           newFriendAge: "",
           newFriendEmail: "",
@@ -177,16 +179,29 @@ class App extends Component {
           searchInput={this.state.searchInput}
           onChange={this.onChange}
         />
-        <FriendForm
-          stateOnProps={this.state}
-          onChange={this.onChange}
-          postNewFriend={this.postNewFriend}
-          clearForm={this.clearForm}
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <FriendList
+              {...props}
+              friendsOnProps={this.state.shownFriends}
+              deleteFriend={this.deleteFriend}
+              modifyFriend={this.modifyFriend}
+            />
+          )}
         />
-        <FriendList
-          friendsOnProps={this.state.shownFriends}
-          deleteFriend={this.deleteFriend}
-          modifyFriend={this.modifyFriend}
+        <Route
+          path="/Form"
+          render={props => (
+            <FriendForm
+              {...props}
+              stateOnProps={this.state}
+              onChange={this.onChange}
+              postNewFriend={this.postNewFriend}
+              clearForm={this.clearForm}
+            />
+          )}
         />
       </div>
     );
