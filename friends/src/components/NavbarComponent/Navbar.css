@@ -15,7 +15,7 @@
   justify-content: space-between;
 }
 
-.navbar p {
+.navbar div {
   display: inline-block;
   line-height: 50px;
   color: white;
@@ -23,8 +23,18 @@
   font-size: 2.5rem;
 }
 
+.navbar div a {
+  color: white;
+  text-decoration: none;
+  margin-right: 8%;
+}
+
+.navbar div a.active {
+  text-decoration: underline;
+}
+
 @media (max-width: 800px) {
-  .navbar p {
+  .navbar div {
     margin-left: 5%;
   }
 
