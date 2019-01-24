@@ -146,6 +146,7 @@ input {
 }
 
 .btn {
+  display: inline-block;
   height: 50px;
   width: 170px;
   background: #6936de;

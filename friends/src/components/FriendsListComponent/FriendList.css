@@ -30,9 +30,11 @@
 }
 
 .friend__buttons {
-  margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 46%;
+  margin: 0 auto;
 }
 
 .modify {
