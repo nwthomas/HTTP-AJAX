@@ -1,3 +1,30 @@
+.form__container {
+  margin-top: 50px;
+}
+
 .btn {
-  margin: 20px 5%;
+  margin: 0 2.5% 20px 0;
+  height: 50px;
+  width: 170px;
+  background: #6936de;
+  color: white;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+  border: 0;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+
+.btn:hover {
+  border: 1px solid #ad91ed;
+  color: #ad91ed;
+  background: white;
+}
+
+@media (max-width: 500px) {
+  .btn {
+    width: 40%;
+    margin: 0 3%;
+  }
 }

@@ -12,7 +12,8 @@ class App extends Component {
     newFriendAge: "",
     newFriendEmail: "",
     message: "",
-    id: ""
+    id: "",
+    searchInput: ""
   };
 
   getData = () => {
@@ -139,7 +140,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavbarContainer />
+        <NavbarContainer
+          searchInput={this.state.searchInput}
+          onChange={this.onChange}
+        />
         <FriendForm
           stateOnProps={this.state}
           onChange={this.onChange}

@@ -7,11 +7,11 @@ const Navbar = props => {
       <p>Lambda Friends List</p>
       <input
         className="search__input"
-        name="searchInputText"
+        name="searchInput"
         type="text"
         placeholder="Search..."
-        value={props.searchInputText}
-        onChange={props.handleChange}
+        value={props.searchInput}
+        onChange={props.onChange}
       />
     </div>
   );

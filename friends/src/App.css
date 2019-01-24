@@ -128,6 +128,44 @@ table {
   border-spacing: 0;
 }
 
+html {
+  font-size: 62.5%;
+}
+
+input {
+  height: 30px;
+  width: 190px;
+  margin-top: 5px;
+  padding-left: 7px;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+}
+
 .App {
   text-align: center;
+}
+
+.btn {
+  height: 50px;
+  width: 170px;
+  background: #6936de;
+  color: white;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+  border: 0;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+
+.btn:hover {
+  border: 1px solid #ad91ed;
+  color: #ad91ed;
+  background: white;
+}
+
+@media (max-width: 500px) {
+  .btn {
+    width: 40%;
+  }
 }
