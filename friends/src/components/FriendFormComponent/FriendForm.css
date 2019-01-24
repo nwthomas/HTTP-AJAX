@@ -11,9 +11,6 @@
   font-size: 14px;
   font-family: "Open Sans", sans-serif;
   border: 0;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
 }
 
 .btn:hover {

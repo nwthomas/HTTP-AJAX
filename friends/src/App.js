@@ -8,6 +8,7 @@ import NavbarContainer from "./components/NavbarComponent/NavbarContainer";
 class App extends Component {
   state = {
     friends: [],
+    shownFriends: [],
     newFriendName: "",
     newFriendAge: "",
     newFriendEmail: "",
@@ -23,6 +24,7 @@ class App extends Component {
         this.setState(
           {
             friends: res.data,
+            shownFriends: res.data,
             message: res.statusText
           },
           () => console.log(this.state.friends)
@@ -49,10 +51,38 @@ class App extends Component {
     });
   };
 
+  searchFriends = () => {
+    if (this.state.searchInput) {
+      const searched = this.state.shownFriends.filter(friend => {
+        if (
+          JSON.stringify(friend.name)
+            .toLowerCase()
+            .includes(this.state.searchInput.toLowerCase())
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      this.setState({
+        shownFriends: searched
+      });
+    } else {
+      this.setState({
+        shownFriends: this.state.friends
+      });
+    }
+  };
+
   onChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    this.setState(
+      {
+        [e.target.name]: e.target.value
+      },
+      () => {
+        this.searchFriends();
+      }
+    );
   };
 
   postNewFriend = e => {
@@ -89,7 +119,10 @@ class App extends Component {
           return this.setState(
             {
               message: res.statusText,
-              friends: res.data
+              friends: res.data,
+              newFriendName: "",
+              newFriendAge: "",
+              newFriendEmail: ""
             },
             () => console.log(this.state.message)
           );
@@ -151,7 +184,7 @@ class App extends Component {
           clearForm={this.clearForm}
         />
         <FriendList
-          friendsOnProps={this.state.friends}
+          friendsOnProps={this.state.shownFriends}
           deleteFriend={this.deleteFriend}
           modifyFriend={this.modifyFriend}
         />
