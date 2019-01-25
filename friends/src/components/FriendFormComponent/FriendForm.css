@@ -1,27 +1,26 @@
 .form__container {
-  margin-top: 50px;
+  margin: 50px auto 0;
+  width: 100%;
+  max-width: 800px;
 }
 
-.btn {
-  margin: 0 0 20px 0;
-  height: 50px;
-  width: 170px;
-  background: #6936de;
-  color: white;
-  font-size: 14px;
-  font-family: "Open Sans", sans-serif;
-  border: 0;
+.form__container form {
+  display: flex;
+  flex-direction: column;
 }
 
-.btn:hover {
-  border: 1px solid #ad91ed;
-  color: #ad91ed;
-  background: white;
+.form__container form input {
+  margin: 0 auto 40px;
+  width: 60%;
 }
 
-@media (max-width: 500px) {
-  .btn {
-    width: 40%;
-    margin: 0 3%;
-  }
+.button__container {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button__container .btn {
+  width: 46%;
 }

@@ -29,10 +29,14 @@ const FriendForm = props => {
           value={props.stateOnProps.newFriendEmail}
           onChange={props.onChange}
         />
-        <button type="submit">Submit</button>
-        <button onClick={props.clearForm} type="button">
-          Clear
-        </button>
+        <div className="button__container">
+          <button className="btn" type="submit">
+            Submit
+          </button>
+          <button className="btn" onClick={props.clearForm} type="button">
+            Clear
+          </button>
+        </div>
       </form>
     </div>
   );
